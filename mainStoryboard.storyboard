@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="13F34" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7Jz-i4-gD4">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+    </dependencies>
+    <scenes>
+        <!--View Controller-->
+        <scene sceneID="n1T-Bn-PrB">
+            <objects>
+                <viewController id="7Jz-i4-gD4" customClass="ViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="EDo-RS-GvL"/>
+                        <viewControllerLayoutGuide type="bottom" id="aCv-8f-dkc"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6ja-Uf-Bnd">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rQh-a9-Eqh" customClass="EAGLView">
+                                <rect key="frame" x="33" y="20" width="600" height="600"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mII-gQ-RJK">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <string key="text" base64-UTF8="YES">
+V2h5IGlzbid0IHRoaXMREREREQ1hIG51bWJlcj8
+</string>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="101" y="75" width="332" height="44"/>
+                                        </variation>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Out Frequency: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EhM-Yv-HHb">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="28" y="166" width="127" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="9qG-Yh-Hdb">
+                                        <rect key="frame" x="0.0" y="-30" width="97" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="decimalPad" returnKeyType="done"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="152" y="162" width="97" height="30"/>
+                                        </variation>
+                                        <connections>
+                                            <outlet property="delegate" destination="7Jz-i4-gD4" id="crS-IB-Vif"/>
+                                        </connections>
+                                    </textField>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Cy6-2N-f5M">
+                                        <rect key="frame" x="-23" y="-15" width="46" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" title="Baseline">
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="28" y="94" width="73" height="28"/>
+                                        </variation>
+                                        <connections>
+                                            <action selector="EstablishBaseline:" destination="7Jz-i4-gD4" eventType="touchUpInside" id="YhB-dn-c4R"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Touche Duration: " lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pkd-Li-b2l">
+                                        <rect key="frame" x="0.0" y="-21" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="28" y="229" width="228" height="21"/>
+                                        </variation>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="TOUCHE_TURTLE_2.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="pUu-Qv-i6L">
+                                        <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                                        <variation key="widthClass=compact" fixedFrame="YES">
+                                            <rect key="frame" x="28" y="275" width="238" height="213"/>
+                                        </variation>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <variation key="default">
+                                    <mask key="subviews">
+                                        <exclude reference="mII-gQ-RJK"/>
+                                        <exclude reference="EhM-Yv-HHb"/>
+                                        <exclude reference="9qG-Yh-Hdb"/>
+                                        <exclude reference="Cy6-2N-f5M"/>
+                                        <exclude reference="pkd-Li-b2l"/>
+                                        <exclude reference="pUu-Qv-i6L"/>
+                                    </mask>
+                                </variation>
+                                <variation key="widthClass=compact">
+                                    <mask key="subviews">
+                                        <include reference="mII-gQ-RJK"/>
+                                        <include reference="EhM-Yv-HHb"/>
+                                        <include reference="9qG-Yh-Hdb"/>
+                                        <include reference="Cy6-2N-f5M"/>
+                                        <include reference="pkd-Li-b2l"/>
+                                        <include reference="pUu-Qv-i6L"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="0.5" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="rQh-a9-Eqh" firstAttribute="top" secondItem="EDo-RS-GvL" secondAttribute="bottom" id="B4y-gI-2Uy"/>
+                            <constraint firstAttribute="bottom" secondItem="rQh-a9-Eqh" secondAttribute="bottom" id="jJn-Ol-MoK"/>
+                            <constraint firstItem="rQh-a9-Eqh" firstAttribute="leading" secondItem="6ja-Uf-Bnd" secondAttribute="leading" id="mkn-FY-AuF"/>
+                            <constraint firstAttribute="trailing" secondItem="rQh-a9-Eqh" secondAttribute="trailing" id="nuS-GS-odu"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="InFreqLabel" destination="mII-gQ-RJK" id="mNi-89-u5z"/>
+                        <outlet property="LastTouchDurationLabel" destination="pkd-Li-b2l" id="Nu1-iF-1bf"/>
+                        <outlet property="OutFreqField" destination="9qG-Yh-Hdb" id="MXc-sM-MZy"/>
+                        <outlet property="ToucheImageView" destination="pUu-Qv-i6L" id="PCE-M9-6hA"/>
+                        <outlet property="glView" destination="rQh-a9-Eqh" id="mvs-Pj-mV3"/>
+                        <outlet property="view" destination="6ja-Uf-Bnd" id="u0s-fH-BV3"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="RnK-is-zEw" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="349.5" y="199"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="TOUCHE_TURTLE_2.jpg" width="400" height="300"/>
+    </resources>
+</document>
