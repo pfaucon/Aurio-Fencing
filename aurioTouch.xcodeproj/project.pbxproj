@@ -26,7 +26,7 @@
 		A16C48360DE389CB00F4A0B3 /* oscilloscope.png in Resources */ = {isa = PBXBuildFile; fileRef = A16C48350DE389CB00F4A0B3 /* oscilloscope.png */; };
 		CE8A47441AE15DFC0045D696 /* mainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8A47431AE15DFC0045D696 /* mainStoryboard.storyboard */; };
 		CE8A47471AE15FA70045D696 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE8A47461AE15FA70045D696 /* ViewController.mm */; };
-		CEF4B02D1B4C299E00E8A35C /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A16C46DC0DE37EC400F4A0B3 /* EAGLView.mm */; };
+		CEF4B02D1B4C299E00E8A35C /* FrequencyManager.mm in Sources */ = {isa = PBXBuildFile; fileRef = A16C46DC0DE37EC400F4A0B3 /* FrequencyManager.mm */; };
 		F74ADD190DDA24AA0046BEC2 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD0F0DDA24AA0046BEC2 /* CADebugMacros.cpp */; };
 		F74ADD1B0DDA24AA0046BEC2 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD150DDA24AA0046BEC2 /* CAStreamBasicDescription.cpp */; };
 		F74ADD1C0DDA24AA0046BEC2 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD170DDA24AA0046BEC2 /* CAXException.cpp */; };
@@ -62,8 +62,8 @@
 		848C01D51AF83E2E00DAC1A5 /* TOUCHE_TURTLE_2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TOUCHE_TURTLE_2.jpg; sourceTree = "<group>"; };
 		8D1107310486CEB800E47090 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../Info.plist; sourceTree = "<group>"; };
 		A15CFB1C0DE4A8C600FB5D08 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = icon.png; path = ../icon.png; sourceTree = "<group>"; };
-		A16C46DC0DE37EC400F4A0B3 /* EAGLView.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = EAGLView.mm; path = Classes/EAGLView.mm; sourceTree = SOURCE_ROOT; };
-		A16C46DD0DE37EC400F4A0B3 /* EAGLView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = EAGLView.h; path = Classes/EAGLView.h; sourceTree = SOURCE_ROOT; };
+		A16C46DC0DE37EC400F4A0B3 /* FrequencyManager.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = FrequencyManager.mm; path = Classes/FrequencyManager.mm; sourceTree = SOURCE_ROOT; };
+		A16C46DD0DE37EC400F4A0B3 /* FrequencyManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FrequencyManager.h; path = Classes/FrequencyManager.h; sourceTree = SOURCE_ROOT; };
 		A16C47110DE37F9E00F4A0B3 /* OpenGLES.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OpenGLES.framework; path = System/Library/Frameworks/OpenGLES.framework; sourceTree = SDKROOT; };
 		A16C473E0DE3801700F4A0B3 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		A16C48350DE389CB00F4A0B3 /* oscilloscope.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = oscilloscope.png; sourceTree = "<group>"; };
@@ -109,20 +109,10 @@
 			isa = PBXGroup;
 			children = (
 				CE8A47431AE15DFC0045D696 /* mainStoryboard.storyboard */,
-				A16C46DD0DE37EC400F4A0B3 /* EAGLView.h */,
-				A16C46DC0DE37EC400F4A0B3 /* EAGLView.mm */,
-				CE8A47451AE15FA70045D696 /* ViewController.h */,
-				CE8A47461AE15FA70045D696 /* ViewController.mm */,
-				1D3623240D0F684500981E51 /* aurioTouchAppDelegate.h */,
-				1D3623250D0F684500981E51 /* aurioTouchAppDelegate.mm */,
-				82DDBB4D17E3D74A00AA85C2 /* AudioController.h */,
-				82DDBB4E17E3D74A00AA85C2 /* AudioController.mm */,
-				82DDBB5A17E8BD9700AA85C2 /* BufferManager.h */,
-				82DDBB5917E8BD9700AA85C2 /* BufferManager.cpp */,
-				82DDBB5D17E9009F00AA85C2 /* FFTHelper.h */,
-				82DDBB5C17E9009F00AA85C2 /* FFTHelper.cpp */,
-				824E9C6317EBA0D9009D582F /* DCRejectionFilter.h */,
-				824E9C6217EBA0D9009D582F /* DCRejectionFilter.cpp */,
+				CEF4B0331B4ECDED00E8A35C /* Views */,
+				CEF4B0321B4ECDE700E8A35C /* ViewControllers */,
+				CEF4B0311B4ECDE000E8A35C /* Models */,
+				CEF4B0301B4ECDD000E8A35C /* Buffers */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -181,6 +171,48 @@
 				1D30AB110D05D00D00671497 /* Foundation.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		CEF4B0301B4ECDD000E8A35C /* Buffers */ = {
+			isa = PBXGroup;
+			children = (
+				82DDBB5A17E8BD9700AA85C2 /* BufferManager.h */,
+				82DDBB5917E8BD9700AA85C2 /* BufferManager.cpp */,
+				82DDBB5D17E9009F00AA85C2 /* FFTHelper.h */,
+				82DDBB5C17E9009F00AA85C2 /* FFTHelper.cpp */,
+				824E9C6317EBA0D9009D582F /* DCRejectionFilter.h */,
+				824E9C6217EBA0D9009D582F /* DCRejectionFilter.cpp */,
+			);
+			name = Buffers;
+			sourceTree = "<group>";
+		};
+		CEF4B0311B4ECDE000E8A35C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A16C46DD0DE37EC400F4A0B3 /* FrequencyManager.h */,
+				A16C46DC0DE37EC400F4A0B3 /* FrequencyManager.mm */,
+				1D3623240D0F684500981E51 /* aurioTouchAppDelegate.h */,
+				1D3623250D0F684500981E51 /* aurioTouchAppDelegate.mm */,
+				82DDBB4D17E3D74A00AA85C2 /* AudioController.h */,
+				82DDBB4E17E3D74A00AA85C2 /* AudioController.mm */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		CEF4B0321B4ECDE700E8A35C /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				CE8A47451AE15FA70045D696 /* ViewController.h */,
+				CE8A47461AE15FA70045D696 /* ViewController.mm */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		CEF4B0331B4ECDED00E8A35C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 		F74ADD0E0DDA24AA0046BEC2 /* PublicUtility */ = {
@@ -299,7 +331,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF4B02D1B4C299E00E8A35C /* EAGLView.mm in Sources */,
+				CEF4B02D1B4C299E00E8A35C /* FrequencyManager.mm in Sources */,
 				824E9C6417EBA0D9009D582F /* DCRejectionFilter.cpp in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* aurioTouchAppDelegate.mm in Sources */,

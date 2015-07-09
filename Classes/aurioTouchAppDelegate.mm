@@ -48,7 +48,7 @@
  */
 
 #import "aurioTouchAppDelegate.h"
-#import "EAGLView.h"
+#import "FrequencyManager.h"
 
 @implementation aurioTouchAppDelegate
 

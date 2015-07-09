@@ -7,7 +7,7 @@
 //  Image stolen from http://vignette2.wikia.nocookie.net/hanna-barbera/images/c/c4/TOUCHE_TURTLE_2.jpg/revision/latest?cb=20110723092503
 
 #import "ViewController.h"
-#import "EAGLView.h"
+
 
 @interface ViewController ()
 @end
@@ -27,8 +27,10 @@ const float AmpFactor = 25, FreqFactor = 0.01;
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self startCheckingValue];
-    _OutFreqField.text = [[NSString alloc] initWithFormat:@"%d", ABS((int) (arc4random()%7001+3000))];
-    [_glView ChangeFreq:[[_OutFreqField text] floatValue]];
+    self.OutFreqField.text = [[NSString alloc] initWithFormat:@"%d", ABS((int) (arc4random()%7001+3000))];
+    
+    self.frequencyManager = [[FrequencyManager alloc] init];
+    self.frequencyManager.frequency = self.OutFreqField.text.floatValue;
     // Do any additional setup after loading the view.
 }
 
@@ -38,7 +40,7 @@ const float AmpFactor = 25, FreqFactor = 0.01;
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
-    [_glView ChangeFreq:[[_OutFreqField text] floatValue]];
+    self.frequencyManager.frequency = self.OutFreqField.text.floatValue;
     [textField endEditing:YES];
     return YES;
 }
@@ -46,7 +48,7 @@ const float AmpFactor = 25, FreqFactor = 0.01;
 // Zeroes out the amplitude input
 - (IBAction)EstablishBaseline:(id)sender {
     float frequency = 0, amplitude = 0;
-    _InFreqLabel.text = [_glView GetInput:frequency :amplitude];
+    _InFreqLabel.text = [self.frequencyManager GetInput:frequency :amplitude];
     baselineAmplitude = -amplitude;
 }
 
@@ -60,7 +62,7 @@ const float AmpFactor = 25, FreqFactor = 0.01;
 -(void)checkValue:(NSTimer *)mainTimer
 {
     float frequency, amplitude = baselineAmplitude;
-    _InFreqLabel.text = [_glView GetInput:frequency :amplitude];
+    _InFreqLabel.text = [self.frequencyManager GetInput:frequency :amplitude];
     
     // Touche detection logic
     if (amplitude > AmpFactor && ABS(frequency-[[_OutFreqField text] floatValue]) < frequency*FreqFactor) {

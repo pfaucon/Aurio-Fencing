@@ -1,105 +1,19 @@
 /*
- 
-     File: EAGLView.mm
- Abstract: n/a
-  Version: 2.0
- 
- Disclaimer: IMPORTANT:  This Apple software is supplied to you by Apple
- Inc. ("Apple") in consideration of your agreement to the following
- terms, and your use, installation, modification or redistribution of
- this Apple software constitutes acceptance of these terms.  If you do
- not agree with these terms, please do not use, install, modify or
- redistribute this Apple software.
- 
- In consideration of your agreement to abide by the following terms, and
- subject to these terms, Apple grants you a personal, non-exclusive
- license, under Apple's copyrights in this original Apple software (the
- "Apple Software"), to use, reproduce, modify and redistribute the Apple
- Software, with or without modifications, in source and/or binary forms;
- provided that if you redistribute the Apple Software in its entirety and
- without modifications, you must retain this notice and the following
- text and disclaimers in all such redistributions of the Apple Software.
- Neither the name, trademarks, service marks or logos of Apple Inc. may
- be used to endorse or promote products derived from the Apple Software
- without specific prior written permission from Apple.  Except as
- expressly stated in this notice, no other rights or licenses, express or
- implied, are granted by Apple herein, including but not limited to any
- patent rights that may be infringed by your derivative works or by other
- works in which the Apple Software may be incorporated.
- 
- The Apple Software is provided by Apple on an "AS IS" basis.  APPLE
- MAKES NO WARRANTIES, EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION
- THE IMPLIED WARRANTIES OF NON-INFRINGEMENT, MERCHANTABILITY AND FITNESS
- FOR A PARTICULAR PURPOSE, REGARDING THE APPLE SOFTWARE OR ITS USE AND
- OPERATION ALONE OR IN COMBINATION WITH YOUR PRODUCTS.
- 
- IN NO EVENT SHALL APPLE BE LIABLE FOR ANY SPECIAL, INDIRECT, INCIDENTAL
- OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
- SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
- INTERRUPTION) ARISING IN ANY WAY OUT OF THE USE, REPRODUCTION,
- MODIFICATION AND/OR DISTRIBUTION OF THE APPLE SOFTWARE, HOWEVER CAUSED
- AND WHETHER UNDER THEORY OF CONTRACT, TORT (INCLUDING NEGLIGENCE),
- STRICT LIABILITY OR OTHERWISE, EVEN IF APPLE HAS BEEN ADVISED OF THE
- POSSIBILITY OF SUCH DAMAGE.
- 
- Copyright (C) 2014 Apple Inc. All Rights Reserved.
- 
- 
+ * This class wraps around lower level models so that we can pass in a frequency and have it generated on the output buffers.  We can also read in the top frequencies.
  */
 
-#import <QuartzCore/QuartzCore.h>
-#import <OpenGLES/EAGLDrawable.h>
-
-#import "EAGLView.h"
+#import "FrequencyManager.h"
 #import "BufferManager.h"
 
-@interface EAGLView () {
-    
+@interface FrequencyManager () {
     AudioComponentInstance toneUnit;
     
-    /* The pixel dimensions of the backbuffer */
-	GLint backingWidth;
-	GLint backingHeight;
-	
-	EAGLContext *context;
-	
-	/* OpenGL names for the renderbuffer and framebuffers used to render to this view */
-	GLuint viewRenderbuffer, viewFramebuffer;
-	
-	/* OpenGL name for the depth buffer that is attached to viewFramebuffer, if it exists (0 if it does not exist) */
-	GLuint depthRenderbuffer;
-    
-	NSTimer                     *animationTimer;
-	NSTimeInterval              animationInterval;
-	NSTimeInterval              animationStarted;
-    
-    BOOL                        applicationResignedActive;
-    
-    UIImageView*				sampleSizeOverlay;
-	UILabel*					sampleSizeText;
-    
-	BOOL						initted_oscilloscope, initted_spectrum;
-	UInt32*						texBitBuffer;
-	CGRect						spectrumRect;
-	
-	GLuint						bgTexture;
-	GLuint						muteOffTexture, muteOnTexture;
-	GLuint						fftOffTexture, fftOnTexture;
-	GLuint						sonoTexture;
-	
-//	aurioTouchDisplayMode		displayMode;
-    
-	UIEvent*					pinchEvent;
-	CGFloat						lastPinchDist;
-	Float32*					l_fftData;
-	GLfloat*					oscilLine;
-    
+    Float32*					l_fftData;
     AudioController*            audioController;
-    
 }
 @end
 
-@implementation EAGLView
+@implementation FrequencyManager
 
 // You must implement this
 + (Class) layerClass
@@ -107,10 +21,9 @@
 	return [CAEAGLLayer class];
 }
 
-//The GL view is stored in the nib file. When it's unarchived it's sent -initWithCoder:
-- (id)initWithCoder:(NSCoder*)coder
+- (id)init
 {
-	if((self = [super initWithCoder:coder])) {
+	if((self = [super init])) {
     
         audioController = [[AudioController alloc] init];
         audioController.muteAudio = true; // The tone unit is a separate entity, so I can just leave it muted and not have to figure out how to keep it from duplicating all the audio like the original AurioTouch
@@ -135,8 +48,8 @@
 }
 
 // Used to define the frequency
-- (void)ChangeFreq:(double)input {
-    _frequency = input;
+- (void)setFrequency:(double)frequency {
+    _frequency = frequency;
 }
 
 // returns the amplitude and frequency, as well as a nicely formatted string
@@ -171,18 +84,6 @@
     return @"-1";
 }
 
-// Stop animating and release resources when they are no longer needed.
-- (void)dealloc
-{	
-	if([EAGLContext currentContext] == context) {
-		[EAGLContext setCurrentContext:nil];
-	}
-	context = nil;
-    free(oscilLine);
-}
-
-
-
 // The rest of the code in this docuent was stolen from http://www.cocoawithlove.com/2010/10/ios-tone-generator-introduction-to.html
 OSStatus RenderTone(
                     void *inRefCon,
@@ -191,14 +92,13 @@ OSStatus RenderTone(
                     UInt32 						inBusNumber,
                     UInt32 						inNumberFrames,
                     AudioBufferList 			*ioData)
-
 {
     // Fixed amplitude is good enough for our purposes
     const double amplitude = 0.25;
     
     // Get the tone parameters out of the view controller
-    EAGLView *viewController =
-    (__bridge EAGLView *)inRefCon;
+    FrequencyManager *viewController =
+    (__bridge FrequencyManager *)inRefCon;
     double theta = viewController->_theta;
     double theta_increment = 2.0 * M_PI * viewController->_frequency / [viewController->audioController sessionSampleRate];
     
@@ -244,7 +144,7 @@ OSStatus RenderTone(
     OSErr err = AudioComponentInstanceNew(defaultOutput, &toneUnit);
     NSAssert1(toneUnit, @"Error creating unit: %hd", err);
     
-    __weak EAGLView *weakself = self;
+    __weak FrequencyManager *weakself = self;
     // Set our tone rendering function on the unit
     AURenderCallbackStruct input;
     input.inputProc = RenderTone;
