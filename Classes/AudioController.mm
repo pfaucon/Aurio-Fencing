@@ -130,7 +130,6 @@ static OSStatus	performRender (void                         *inRefCon,
     return self;
 }
 
-
 - (void)handleInterruption:(NSNotification *)notification
 {
     try {
@@ -154,7 +153,6 @@ static OSStatus	performRender (void                         *inRefCon,
         fprintf(stderr, "Error: %s (%s)\n", e.mOperation, e.FormatError(buf));
     }
 }
-
 
 - (void)handleRouteChange:(NSNotification *)notification
 {

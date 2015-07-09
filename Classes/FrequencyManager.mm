@@ -9,7 +9,6 @@
     AudioComponentInstance toneUnit;
     
     Float32*					l_fftData;
-    AudioController*            audioController;
 }
 @end
 
@@ -25,11 +24,11 @@
 {
 	if((self = [super init])) {
     
-        audioController = [[AudioController alloc] init];
-        audioController.muteAudio = true; // The tone unit is a separate entity, so I can just leave it muted and not have to figure out how to keep it from duplicating all the audio like the original AurioTouch
-        l_fftData = (Float32*) calloc([audioController getBufferManagerInstance]->GetFFTOutputBufferLength(), sizeof(Float32));
+        self.audioController = [[AudioController alloc] init];
+        self.audioController.muteAudio = true; // The tone unit is a separate entity, so I can just leave it muted and not have to figure out how to keep it from duplicating all the audio like the original AurioTouch
+        l_fftData = (Float32*) calloc([self.audioController getBufferManagerInstance]->GetFFTOutputBufferLength(), sizeof(Float32));
         
-        [audioController startIOUnit];
+        [self.audioController startIOUnit];
         _frequency = 0;
         if (!toneUnit) // this code creates the tone unit
         {
@@ -56,9 +55,9 @@
 // Yes, I am lazy and made them pointers.
 - (NSString *)GetInput:(float&)frequency :(float&)amplitude
 {
-    if (![audioController audioChainIsBeingReconstructed])  //hold off on drawing until the audio chain has been reconstructed
+    if (![self.audioController audioChainIsBeingReconstructed])  //hold off on drawing until the audio chain has been reconstructed
     {
-        BufferManager* bufferManager = [audioController getBufferManagerInstance];
+        BufferManager* bufferManager = [self.audioController getBufferManagerInstance];
         if (bufferManager->HasNewFFTData())
         {
             bufferManager->GetFFTOutput(l_fftData);
@@ -76,7 +75,7 @@
         // Now that we have the array sorted, we can find the index/frequency we want.
         // The array is double the length it needs to be, so we have to divide by 2
         NSUInteger index =[Sorter indexOfObject:[sorted objectAtIndex:0]];
-        frequency = (index/2)*[audioController sessionSampleRate]/(bufferManager->GetFFTOutputBufferLength());
+        frequency = (index/2)*[self.audioController sessionSampleRate]/(bufferManager->GetFFTOutputBufferLength());
         amplitude += [[sorted objectAtIndex:0] floatValue];
         
         return [[NSString alloc] initWithFormat:@"Current Frequency: %d\nCurrent Amplitude: %d", (int)frequency, (int)amplitude];
@@ -84,7 +83,6 @@
     return @"-1";
 }
 
-// The rest of the code in this docuent was stolen from http://www.cocoawithlove.com/2010/10/ios-tone-generator-introduction-to.html
 OSStatus RenderTone(
                     void *inRefCon,
                     AudioUnitRenderActionFlags 	*ioActionFlags,
@@ -97,10 +95,10 @@ OSStatus RenderTone(
     const double amplitude = 0.25;
     
     // Get the tone parameters out of the view controller
-    FrequencyManager *viewController =
+    FrequencyManager *host =
     (__bridge FrequencyManager *)inRefCon;
-    double theta = viewController->_theta;
-    double theta_increment = 2.0 * M_PI * viewController->_frequency / [viewController->audioController sessionSampleRate];
+    double theta = host.theta;
+    double theta_increment = 2.0 * M_PI * host.frequency / [host.audioController sessionSampleRate];
     
     // This is a mono tone generator so we only need the first buffer
     const int channel = 0;
@@ -119,7 +117,7 @@ OSStatus RenderTone(
     }
     
     // Store the theta back in the view controller
-    viewController->_theta = theta;
+    host.theta = theta;
     
     return noErr;
 }
@@ -161,7 +159,7 @@ OSStatus RenderTone(
     const int four_bytes_per_float = 4;
     const int eight_bits_per_byte = 8;
     AudioStreamBasicDescription streamFormat;
-    streamFormat.mSampleRate = [audioController sessionSampleRate];
+    streamFormat.mSampleRate = [self.audioController sessionSampleRate];
     streamFormat.mFormatID = kAudioFormatLinearPCM;
     streamFormat.mFormatFlags =
     kAudioFormatFlagsNativeFloatPacked | kAudioFormatFlagIsNonInterleaved;

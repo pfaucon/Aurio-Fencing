@@ -9,6 +9,7 @@
 
 @property (nonatomic) double frequency;
 @property double theta;
+@property AudioController *audioController;
 
 - (NSString *)GetInput:(float&)frequency :(float&)amplitude;
 
