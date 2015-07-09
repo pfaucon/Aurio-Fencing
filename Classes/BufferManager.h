@@ -66,9 +66,6 @@ public:
     BufferManager( UInt32 inMaxFramesPerSlice );
     ~BufferManager();
     
-    void            SetDisplayMode ( UInt32 inDisplayMode ) { mDisplayMode = inDisplayMode; }
-    UInt32          GetDisplayMode () { return mDisplayMode; }
-    
     Float32**       GetDrawBuffers ()  { return mDrawBuffers; }
     void            CopyAudioDataToDrawBuffer( Float32* inData, UInt32 numFrames );
     void            CycleDrawBuffers();

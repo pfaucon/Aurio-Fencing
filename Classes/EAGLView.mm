@@ -53,43 +53,9 @@
 #import "EAGLView.h"
 #import "BufferManager.h"
 
-
-#define USE_DEPTH_BUFFER 1
-#define SPECTRUM_BAR_WIDTH 4
-
-
-#ifndef CLAMP
-#define CLAMP(min,x,max) (x < min ? min : (x > max ? max : x))
-#endif
-
-
-// value, a, r, g, b
-GLfloat colorLevels[] = {
-    0., 1., 0., 0., 0.,
-    .333, 1., .7, 0., 0.,
-    .667, 1., 0., 0., 1.,
-    1., 1., 0., 1., 1.,
-};
-
-#define kMinDrawSamples 64
-#define kMaxDrawSamples 4096
-
-
-
-typedef enum aurioTouchDisplayMode {
-	aurioTouchDisplayModeOscilloscopeWaveform,
-	aurioTouchDisplayModeOscilloscopeFFT,
-	aurioTouchDisplayModeSpectrum
-} aurioTouchDisplayMode;
-
-
-
 @interface EAGLView () {
     
-    
     AudioComponentInstance toneUnit;
-    
-    
     
     /* The pixel dimensions of the backbuffer */
 	GLint backingWidth;
@@ -121,7 +87,7 @@ typedef enum aurioTouchDisplayMode {
 	GLuint						fftOffTexture, fftOnTexture;
 	GLuint						sonoTexture;
 	
-	aurioTouchDisplayMode		displayMode;
+//	aurioTouchDisplayMode		displayMode;
     
 	UIEvent*					pinchEvent;
 	CGFloat						lastPinchDist;
@@ -150,9 +116,6 @@ typedef enum aurioTouchDisplayMode {
         audioController.muteAudio = true; // The tone unit is a separate entity, so I can just leave it muted and not have to figure out how to keep it from duplicating all the audio like the original AurioTouch
         l_fftData = (Float32*) calloc([audioController getBufferManagerInstance]->GetFFTOutputBufferLength(), sizeof(Float32));
         
-        BufferManager* bufferManager = [audioController getBufferManagerInstance];
-        displayMode = aurioTouchDisplayModeOscilloscopeFFT;
-        bufferManager->SetDisplayMode(aurioTouchDisplayModeOscilloscopeFFT);
         [audioController startIOUnit];
         _frequency = 0;
         if (!toneUnit) // this code creates the tone unit
@@ -161,11 +124,11 @@ typedef enum aurioTouchDisplayMode {
             
             // Stop changing parameters on the unit
             OSErr err = AudioUnitInitialize(toneUnit);
-            NSAssert1(err == noErr, @"Error initializing unit: %ld", err);
+            NSAssert1(err == noErr, @"Error initializing unit: %hd", err);
             
             // Start playback
             err = AudioOutputUnitStart(toneUnit);
-            NSAssert1(err == noErr, @"Error starting unit: %ld", err);
+            NSAssert1(err == noErr, @"Error starting unit: %hd", err);
         }
     }
 	return self;
@@ -199,7 +162,7 @@ typedef enum aurioTouchDisplayMode {
         
         // Now that we have the array sorted, we can find the index/frequency we want.
         // The array is double the length it needs to be, so we have to divide by 2
-        uint index =[Sorter indexOfObject:[sorted objectAtIndex:0]];
+        NSUInteger index =[Sorter indexOfObject:[sorted objectAtIndex:0]];
         frequency = (index/2)*[audioController sessionSampleRate]/(bufferManager->GetFFTOutputBufferLength());
         amplitude += [[sorted objectAtIndex:0] floatValue];
         
@@ -279,7 +242,7 @@ OSStatus RenderTone(
     
     // Create a new unit based on this that we'll use for output
     OSErr err = AudioComponentInstanceNew(defaultOutput, &toneUnit);
-    NSAssert1(toneUnit, @"Error creating unit: %ld", err);
+    NSAssert1(toneUnit, @"Error creating unit: %hd", err);
     
     __weak EAGLView *weakself = self;
     // Set our tone rendering function on the unit
@@ -292,7 +255,7 @@ OSStatus RenderTone(
                                0,
                                &input,
                                sizeof(input));
-    NSAssert1(err == noErr, @"Error setting callback: %ld", err);
+    NSAssert1(err == noErr, @"Error setting callback: %hd", err);
     
     // Set the format to 32 bit, single channel, floating point, linear PCM
     const int four_bytes_per_float = 4;
@@ -313,7 +276,7 @@ OSStatus RenderTone(
                                 0,
                                 &streamFormat,
                                 sizeof(AudioStreamBasicDescription));
-    NSAssert1(err == noErr, @"Error setting stream format: %ld", err);
+    NSAssert1(err == noErr, @"Error setting stream format: %hd", err);
 }
 
 

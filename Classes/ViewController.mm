@@ -32,35 +32,14 @@ const float AmpFactor = 25, FreqFactor = 0.01;
     // Do any additional setup after loading the view.
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-// The whole "resignfirstresponder" thing isn't working. Dunno why.
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
     [_glView ChangeFreq:[[_OutFreqField text] floatValue]];
-    [textField resignFirstResponder];
+    [textField endEditing:YES];
     return YES;
 }
 

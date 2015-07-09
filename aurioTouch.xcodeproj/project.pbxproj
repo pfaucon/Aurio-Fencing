@@ -21,12 +21,12 @@
 		82DDBB5E17E9009F00AA85C2 /* FFTHelper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 82DDBB5C17E9009F00AA85C2 /* FFTHelper.cpp */; };
 		848C01D61AF83E2E00DAC1A5 /* TOUCHE_TURTLE_2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 848C01D51AF83E2E00DAC1A5 /* TOUCHE_TURTLE_2.jpg */; };
 		A15CFB1D0DE4A8C600FB5D08 /* icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A15CFB1C0DE4A8C600FB5D08 /* icon.png */; };
-		A16C46DE0DE37EC400F4A0B3 /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A16C46DC0DE37EC400F4A0B3 /* EAGLView.mm */; };
 		A16C47120DE37F9E00F4A0B3 /* OpenGLES.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16C47110DE37F9E00F4A0B3 /* OpenGLES.framework */; };
 		A16C473F0DE3801700F4A0B3 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A16C473E0DE3801700F4A0B3 /* QuartzCore.framework */; };
 		A16C48360DE389CB00F4A0B3 /* oscilloscope.png in Resources */ = {isa = PBXBuildFile; fileRef = A16C48350DE389CB00F4A0B3 /* oscilloscope.png */; };
 		CE8A47441AE15DFC0045D696 /* mainStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE8A47431AE15DFC0045D696 /* mainStoryboard.storyboard */; };
 		CE8A47471AE15FA70045D696 /* ViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = CE8A47461AE15FA70045D696 /* ViewController.mm */; };
+		CEF4B02D1B4C299E00E8A35C /* EAGLView.mm in Sources */ = {isa = PBXBuildFile; fileRef = A16C46DC0DE37EC400F4A0B3 /* EAGLView.mm */; };
 		F74ADD190DDA24AA0046BEC2 /* CADebugMacros.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD0F0DDA24AA0046BEC2 /* CADebugMacros.cpp */; };
 		F74ADD1B0DDA24AA0046BEC2 /* CAStreamBasicDescription.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD150DDA24AA0046BEC2 /* CAStreamBasicDescription.cpp */; };
 		F74ADD1C0DDA24AA0046BEC2 /* CAXException.cpp in Sources */ = {isa = PBXBuildFile; fileRef = F74ADD170DDA24AA0046BEC2 /* CAXException.cpp */; };
@@ -299,6 +299,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF4B02D1B4C299E00E8A35C /* EAGLView.mm in Sources */,
 				824E9C6417EBA0D9009D582F /* DCRejectionFilter.cpp in Sources */,
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* aurioTouchAppDelegate.mm in Sources */,
@@ -307,7 +308,6 @@
 				CE8A47471AE15FA70045D696 /* ViewController.mm in Sources */,
 				82DDBB4F17E3D74A00AA85C2 /* AudioController.mm in Sources */,
 				F74ADD1C0DDA24AA0046BEC2 /* CAXException.cpp in Sources */,
-				A16C46DE0DE37EC400F4A0B3 /* EAGLView.mm in Sources */,
 				82DDBB5E17E9009F00AA85C2 /* FFTHelper.cpp in Sources */,
 				82DDBB5B17E8BD9700AA85C2 /* BufferManager.cpp in Sources */,
 			);

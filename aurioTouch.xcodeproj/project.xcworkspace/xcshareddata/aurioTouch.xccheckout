@@ -10,14 +10,14 @@
 	<string>aurioTouch</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>ED638C7F191B65F8B6037D0D3CEC015DC1DBA018</key>
+		<key>84DE31342FC4E9FC92600957071A68F89E6A7593</key>
 		<string>https://github.com/ThislsAUsername/Aurio-Fencing</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>aurioTouch.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>ED638C7F191B65F8B6037D0D3CEC015DC1DBA018</key>
+		<key>84DE31342FC4E9FC92600957071A68F89E6A7593</key>
 		<string>../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
@@ -25,14 +25,14 @@
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>ED638C7F191B65F8B6037D0D3CEC015DC1DBA018</string>
+	<string>84DE31342FC4E9FC92600957071A68F89E6A7593</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>ED638C7F191B65F8B6037D0D3CEC015DC1DBA018</string>
+			<string>84DE31342FC4E9FC92600957071A68F89E6A7593</string>
 			<key>IDESourceControlWCCName</key>
 			<string>Aurio-Fencing</string>
 		</dict>

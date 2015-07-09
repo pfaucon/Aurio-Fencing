@@ -91,17 +91,8 @@ static OSStatus	performRender (void                         *inRefCon,
         // filter out the DC component of the signal
         cd.dcRejectionFilter->ProcessInplace((Float32*) ioData->mBuffers[0].mData, inNumberFrames);
         
-        // based on the current display mode, copy the required data to the buffer manager
-        if (cd.bufferManager->GetDisplayMode() == aurioTouchDisplayModeOscilloscopeWaveform)
-        {
-            cd.bufferManager->CopyAudioDataToDrawBuffer((Float32*)ioData->mBuffers[0].mData, inNumberFrames);
-        }
-        
-        else if ((cd.bufferManager->GetDisplayMode() == aurioTouchDisplayModeSpectrum) || (cd.bufferManager->GetDisplayMode() == aurioTouchDisplayModeOscilloscopeFFT))
-        {
             if (cd.bufferManager->NeedsNewFFTData())
                 cd.bufferManager->CopyAudioDataToFFTInputBuffer((Float32*)ioData->mBuffers[0].mData, inNumberFrames);
-        }
         
         // mute audio if needed
         if (*cd.muteAudio)

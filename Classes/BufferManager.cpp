@@ -54,7 +54,6 @@
 
 
 BufferManager::BufferManager( UInt32 inMaxFramesPerSlice ) :
-mDisplayMode(0 /*aurioTouchDisplayModeOscilloscopeWaveform*/),
 mDrawBuffers(),
 mDrawBufferIndex(0),
 mCurrentDrawBufferLen(kDefaultDrawSamples),
